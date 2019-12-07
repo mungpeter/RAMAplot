@@ -1,0 +1,4 @@
+parm   ./fgf21-wt-s2.prot.prmtop
+
+trajin ./fgf21-wt-s2.prod_gamd.1.nc 1 50000 1
+
