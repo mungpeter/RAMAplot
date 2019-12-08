@@ -33,7 +33,6 @@ msg = '''  > {0}
       -in  [ PDB file for Ramachandran density plot ]
       -png [ Output PNG name ]\n
     optional:
-      -int [ Resolution (def: 2-deg interval) ]
       -ref [ Directory to Density data for reference Ramachandran distribution ]
       -dpi [ PNG figure DPI resolution (def: 300) ]\n
 '''.format(sys.argv[0])
@@ -46,8 +45,8 @@ ref_df = pd.DataFrame(
            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#FFE8C5','#FED479'])},
     'Gen':{'file': 'pref_general.data.bz2', 'bounds': [0,0.0005,0.02,1],
            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#B3E8FF','#26C3FF'])},
-    'PreP':{'file': 'pref_preproline.data.bz2', 'bounds': [0,0.002, 0.02,1],
-            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#FFD7DA','#F3ABB0'])}
+    'PreP':{'file':'pref_preproline.data.bz2', 'bounds': [0,0.002, 0.02,1],
+            'cmap':mpl.colors.ListedColormap(['#FFFFFF','#FFD7DA','#F3ABB0'])}
   } )
 
 ############################################################################
@@ -55,12 +54,6 @@ ref_df = pd.DataFrame(
 def main( ):
 
   args = UserInput()
-  if args.actual_start is None:
-    args.actual_start = 1
-  else: args.actual_start = int(args.actual_start)
-  if args.interval is None:   # default degree interval
-    args.interval = 2
-  else: args.interval = float(args.interval)
   if args.dpi is None:        # figure DPI
     args.dpi      = 300
   else: args.dpi = int(args.dpi)
@@ -71,7 +64,7 @@ def main( ):
     ref_dict[key] = RefRamaData( args.ref_dir, ref_df[key] )
 
   # extract input residue dihedral angles and generate figure settings
-  res_dict = InputRamaData( args.in_file, args.actual_start, args.interval )
+  res_dict = InputRamaData( args.in_file, args.interval )
 
   # generate figure
   GeneratePNG( res_dict, ref_dict, args.png_name, args.dpi )
@@ -80,14 +73,18 @@ def main( ):
 ############################################################################
 ############################################################################
 ## extract input residue dihedral angles
-def InputRamaData( pdb_file, actual_start, interval ):
+def InputRamaData( pdb_file, interval ):
 
   Res_Dih = []
   ## extract sequence and dihedral angle data from PDB structure
   pdb_id = pdb_file.split('.pdb')[0].split('/')[-1]
 
+  # use file_handle to deal with zipped PDB
   # going into each chain in model(s), then each of broken pieces in each
   # chain, get peptide and info
+  # take non-standard AA and other ligands as well. Non-standard AA will be
+  # coverted to standard AA. Water and ligands will not get phi/psi values
+  # so will be dropped later at the dataframe level  
   for model in p.get_structure(pdb_id, file_handle(pdb_file) ):
     for chain in model:
       chain_id = chain.get_id()
@@ -109,9 +106,9 @@ def InputRamaData( pdb_file, actual_start, interval ):
           Res_Dih.append([one_resname, resid, chain_id, phi, psi])
 
 
-  # build dataframe of dihedral angle data
+  # build dataframe of dihedral angle data, drop those without phi/psi
   pdb_df = pd.DataFrame(Res_Dih, 
-              columns=['resname','resid','chain','PHI','PSI']).dropna()
+             columns=['resname','resid','chain','PHI','PSI']).dropna()
 
   # convert angle from radian to degree
   pdb_df['phi'] = radian2deg(pdb_df.PHI.to_numpy())
@@ -140,10 +137,9 @@ def RefRamaData( ref_dir, ref_inf ):
   # data is transpose to get correct orientation
   ref_obj = PNGData( histo2d=rama_ref.transpose() )
 
-  # unique setting for density data to generate correct plot axis order
   # extent is different from res_obj.extent
-  # color is (white, light cyan, cyan) at specific contour level
-  ref_obj.extent = (-181,181,-181,181)  # different from res_obj.extent
+  # color is (white, light color, dark color) at specific contour level
+  ref_obj.extent = (-181,181,-181,181)
   ref_obj.colors = ref_inf.cmap
   ref_obj.norm   = mpl.colors.BoundaryNorm(ref_inf.bounds, ref_obj.colors.N)
 
@@ -191,12 +187,11 @@ class PNGData(object):
   def __init__( self, histo2d='', **kwargs):
     self.histo2d = histo2d
 
-
 # convert radian into degree
 def radian2deg(rad):
   return np.rad2deg(rad)
 
-
+# to handle zipped files for Biopython
 def file_handle(file_name):
   if re.search(r'.gz$', file_name):
     handle = gzip.open(file_name, 'rt')
@@ -212,14 +207,10 @@ def UserInput():
   p = ArgumentParser(description='Command Line Arguments')
 
   p.add_argument('-in', dest='in_file', required=True,
-                 help='PDB structure')
+                 help='PDB structure (zipped okay)')
   p.add_argument('-png', dest='png_name', required=True,
                  help='Output PNG filename')
 
-  p.add_argument('-stt', dest='actual_start', required=False)
-
-  p.add_argument('-int', dest='interval', required=False,
-                 help='Ramachandran plot resolution (def: 2-degree)')
   p.add_argument('-ref', dest='ref_dir', required=False,
                  help='Directory of Density data for reference Ramachandran distribution')
   p.add_argument('-dpi', dest='dpi', required=False,
