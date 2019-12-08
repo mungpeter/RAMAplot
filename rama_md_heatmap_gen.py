@@ -34,7 +34,7 @@ msg = '''  > {0}
       -in  [ phi-psi file for Ramachandran density plot ]
       -png [ output PNG name ]\n
     optional:
-      -res [ 1-char AminoAcid code for reference selection (def: x, general) ]
+      -res [ 1-char AminoAcid code for reference selection (def: Pro, PreP, Gly, Gen) ]
       -int [ Resolution (def: 2-deg interval) ]
       -ref [ Density data for reference Ramachandran distribution ]
       -fraction [ Cutoff fraction of the maximum Histogram value (def: 33) ]
@@ -53,8 +53,8 @@ ref_df = pd.DataFrame(
            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#FFE8C5','#FED479'])},
     'Gen':{'file': 'pref_general.data.bz2', 'bounds': [0,0.0005,0.02,1],
            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#B3E8FF','#26C3FF'])},
-    'PreP':{'file': 'pref_preproline.data.bz2', 'bounds': [0,0.002, 0.02,1],
-            'cmap': mpl.colors.ListedColormap(['#FFFFFF','#FFD7DA','#F3ABB0'])}
+    'PreP':{'file':'pref_preproline.data.bz2', 'bounds': [0,0.002, 0.02,1],
+            'cmap':mpl.colors.ListedColormap(['#FFFFFF','#FFD7DA','#F3ABB0'])}
   } )
 
 ############################################################################
@@ -249,7 +249,7 @@ def UserInput():
                  help='Output PNG filename')
 
   p.add_argument('-res', dest='residue', required=False,
-                 help='1-char AA code of residue (def: x, general)')
+                 help='1-char AA code of residue (def: Pro, PreP, Gly, Gen)')
   p.add_argument('-int', dest='interval', required=False,
                  help='Ramachandran plot resolution (def: 2-degree)')
   p.add_argument('-ref', dest='rama_ref', required=False,
