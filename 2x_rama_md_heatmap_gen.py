@@ -91,8 +91,7 @@ def main( ):
                            args.smoothen, args.t_step,   args.c_step    )
 
   # generate figure
-  bar_label = '% Population'
-  GeneratePNG( res_obj, ref_obj, bar_label, args.png_name, args.dpi )
+  GeneratePNG( res_obj, ref_obj, args.png_name, args.dpi )
 
 
 ############################################################################
@@ -180,7 +179,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
 
 ############################################################################
 ## Generate Ramachandran heat map
-def GeneratePNG( res_obj, ref_obj, bar_label, png_name, dpi ):
+def GeneratePNG( res_obj, ref_obj, png_name, dpi ):
 
   plt.figure(2, figsize=(7,5.5))
   colors = mpl.cm.jet
@@ -210,6 +209,7 @@ def GeneratePNG( res_obj, ref_obj, bar_label, png_name, dpi ):
   ## create colorbar instance on side based on last data input
   cbar = plt.colorbar( ticks=res_obj.cbar_ticks, format=('%.1e'),
                        extend=bar_extend, aspect=20 )
+  bar_label = '% Population'  
   cbar.ax.set_ylabel(bar_label, rotation=270, fontsize=18, labelpad=20)
 
   ## then overlay contour lines on top of heat map
