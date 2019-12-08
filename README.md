@@ -75,8 +75,8 @@ This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distrib
 ```
 This is the **actual** script that generates the heatmap figure, but it can only do **one** residue at a time so it should be coupled with the above _rama_md_heatmap.csh_ script to run through a list of residues.
 
-- Distribution of AA backone dihedral angle of a residue throughout MD trajectories as heatmap
-![Distribution of AA backone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.png)
+- Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap
+![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.png)
 
 #######################################################################################
 Stable packages:
