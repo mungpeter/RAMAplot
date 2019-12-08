@@ -3,8 +3,9 @@
 ##########################################################################
 ## 
 ##  Peter MU Ung @ UMich COPharm
-##
 ##  v1.0 -- 09.01.22
+##
+##  Peter MU Ung @ MSSM / Yale
 ##  v2.0 -- 19.12.03	generalize process up to generating figures
 ##
 ##  To generate PTRAJ input files and run PTRAJ to generate separate  
