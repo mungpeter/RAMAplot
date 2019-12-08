@@ -147,7 +147,7 @@ while ($i <= $endResid)
   endif
 
   ## Generate dihedral density heatmap
-  $scptdir/rama_md_heatmap_gen.py \
+  $scptdir/2x_rama_md_heatmap_gen.py \
     -in  $out_pref.${fasta[$i]}$a.rama.out.bz2 \
     -png $out_pref.${fasta[$i]}$a.rama_histo.png \
     $ref $res $t_step $c_step
