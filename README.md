@@ -21,8 +21,8 @@ There are 2 parts to this particular Ramachandran (amino acid backbone dihedral 
 
 
 e.g.> ./1_rama_single_structure_gen.py \
-        -in 3anr.pdb.bz2             \
-        -png 3anr.rama_plot.png      \
+        -in 3anr.pdb.bz2               \
+        -png 3anr.rama_plot.png        \
         -ref ../pyrama_data
 ```
 
@@ -49,20 +49,21 @@ This script manages the generation of Ramachandran plots for one input PDB struc
 *** Require the main processing script: rama_md_heatmap_gen.py ***
 
 e.g.> ./2_rama_md_heatmap.csh    \
-        2 11 fgf21-wt-s2.fasta \
-        200                    \
-        fgf21-wt               \
-        templ_metrics.wt.traj  \
-        1 1                    \
-        .                      \
-        /home/software/cpptraj/bin/cpptraj
+          2 11 fgf21-wt-s2.fasta \
+          200                    \
+          fgf21-wt               \
+          templ_metrics.wt.traj  \
+          1 1                    \
+          .                      \
+          /home/software/cpptraj/bin/cpptraj
 ```
 This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distribution/population of amino acid backbone dihedral angle as contoured heatmap in a Ramachandran plot. Data is usually from MD trajectories and can only do 1 residue at a time. Most useful for comparison of amino acid behaviour change in a protein with mutant residues, or to examine the difference in structural or conformational changes.
 
 ```
 > 2x_rama_md_heatmap_gen.py
       -in  [ phi-psi file for Ramachandran density plot ]
-      -png [ output PNG name ]\n
+      -png [ output PNG name ]
+      
     optional:
       -res [ 1-char AminoAcid code for reference selection (def: Pro, PreP, Gly, Gen) ]
       -int [ Resolution (def: 2-deg interval) ]
