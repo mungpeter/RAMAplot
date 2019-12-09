@@ -80,6 +80,33 @@ This is the **actual** script that generates the heatmap figure, but it can only
 ![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.png)
 
 #######################################################################################
+```
+> 3_rama_extract_popul.py
+      -in      [ phi-psi file for Ramachandran density plot ]
+      -list    [ list of ranges in degree to extraction population ]
+      
+    Optional:
+      -pwd     [ path to the data file ]
+      -xrange  [ Phi-range, if not using -list ]
+      -yrange  [ Psi-range, if not using -list ]
+
+#####
+# example input for -list file: 
+  # -180 -120 , 120 180     # population_1: Phi-range [-180,-120] ; Psi-range [120,180]
+  # -120 -30  ; 120 180     # population_2: Phi-range [-120,-30] ;  Psi-range [120,180]
+  # 30 90     : -30 60      # population_2: Phi-range [30,90] ;     Psi-range [-30,60]
+#####  
+
+e.g.> ./3_rama_extract_popul.py                  \
+          -in   fgf21-wt.A208.rama.out.bz2       \
+          -list fgf21-wt.A208.rama.cluster.txt
+```
+This script calculate the population of dihedral angles that fall within the defined ranges. 
+
+- Population of different clusters of dihedral angles in MD trajectory
+![Population of different clusters of dihedral angles in MD trajectory](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.popul.png)
+
+#######################################################################################
 Stable packages:
 ```
 python      # 3.6.9+
