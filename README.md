@@ -100,6 +100,22 @@ This is the **actual** script that generates the heatmap figure, but it can only
 e.g.> ./3_rama_extract_popul.py                  \
           -in   fgf21-wt.A208.rama.out.bz2       \
           -list fgf21-wt.A208.rama.cluster.txt
+          
+---------------------------------
+# X-range [ -180.0 , -120.0 ] | Y-range [ 120.0 , 180.0 ]
+ % Population: 11.62
+
+# X-range [ -120.0 , -30.0 ] | Y-range [ 120.0 , 180.0 ]
+ % Population: 31.39
+
+# X-range [ -120.0 , -30.0 ] | Y-range [ -60.0 , 30.0 ]
+ % Population: 21.10
+
+# X-range [ 30.0 , 90.0 ] | Y-range [ -30.0 , 60.0 ]
+ % Population: 4.36
+
+# % Total Population: 68.48
+
 ```
 This script calculate the population of dihedral angles that fall within the defined ranges. 
 
