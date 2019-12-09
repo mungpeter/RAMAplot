@@ -84,7 +84,7 @@ Stable packages:
 ```
 python      # 3.6.9+
 numpy       # 1.17.4
-pandas      # 0.25.3
+pandas      # 0.24.1+
 matplotlib  # 3.0.2+
 scipy       # 1.3.2
 biopython   # 1.72+
