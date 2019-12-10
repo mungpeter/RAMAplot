@@ -17,7 +17,7 @@
 ##
 ##  Use with:
 ##    -) cpptraj (use GitHub V4.14.12+ for extra functions)
-##    -) combine_column.pl
+##    -) combine_column.py
 ##    -) rama_md_heatmap_gen.py
 ##    -) ecoDnaK.fasta (only 1 line of the sequence)
 ##
@@ -57,7 +57,7 @@ set templ_traj = $argv[6]	# Template PTRAJ input file
 set run_traj   = $argv[7]	# run dihedral data generation
 set ref_rama   = $argv[8]	# use reference AA dihedral density map
 
-#set scptdir = '/home/pmung/Dropbox/9_scripts/3_program/plotting/rama/rama_histo_plot'
+#set scptdir = '/home/pmung/Dropbox/9_scripts/3_program/plotting/RAMAplot'
 #set ctraj   = '/home/software/ctraj/bin/cpptraj'
 set scptdir = $argv[9]
 set ctraj   = $argv[10]
@@ -104,13 +104,14 @@ endif
 while ($i <= $endResid)
 
   ## Generate phi-psi data
-  if ($run_traj == 1) then
-    echo " ## Generate combined phi-psi files: $out_pref.${fasta[$i]}$a"
-    $scptdir/combine_column.pl \
-      $out_pref.${fasta[$i]}$a.phi.out \
-      $out_pref.${fasta[$i]}$a.psi.out \
-      2                                   \
+  echo " ## Generate combined phi-psi files: $out_pref.${fasta[$i]}$a"
+  if (! -e $out_pref.${fasta[$i]}$a.rama.out.bz2) then
+    $scptdir/combine_column.py \
+      -in1 $out_pref.${fasta[$i]}$a.phi.out \
+      -in2 $out_pref.${fasta[$i]}$a.psi.out \
+      -cols 2                               \
       > $out_pref.${fasta[$i]}$a.rama.out
+    echo $out_pref.${fasta[$i]}$a.rama.out
 
     bzip2 -f $out_pref.${fasta[$i]}$a.rama.out
     rm $out_pref.${fasta[$i]}$a.phi.out $out_pref.${fasta[$i]}$a.psi.out

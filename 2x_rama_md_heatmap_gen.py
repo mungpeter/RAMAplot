@@ -57,6 +57,9 @@ ref_df = pd.DataFrame(
             'cmap':mpl.colors.ListedColormap(['#FFFFFF','#FFD7DA','#F3ABB0'])}
   } )
 
+if int(pd.__version__.split('.')[1]) < 24:
+  sys.exit('\n  ERROR: Require Pandas 0.24+ \n')
+
 ############################################################################
 
 def main( ):
@@ -99,7 +102,7 @@ def main( ):
 ## extract input residue dihedral angles and generate figure settings
 def InputRamaData( in_file, interval, fraction, smoothen, t_step, c_step ):
 
-  rama_inp = pd.read_csv(in_file, delimiter=' ').drop(columns=['#Frame'])
+  rama_inp = pd.read_csv(in_file, delimiter='\s+').drop(columns=['#Frame'])
 
   # Generate Ramachandran data in X-axis and Y-axis
   # Edges is array of [-180, 180] at a certain interval
@@ -209,7 +212,7 @@ def GeneratePNG( res_obj, ref_obj, png_name, dpi ):
   ## create colorbar instance on side based on last data input
   cbar = plt.colorbar( ticks=res_obj.cbar_ticks, format=('%.1e'),
                        extend=bar_extend, aspect=20 )
-  bar_label = '% Population'  
+  bar_label = '% Population'
   cbar.ax.set_ylabel(bar_label, rotation=270, fontsize=18, labelpad=20)
 
   ## then overlay contour lines on top of heat map
