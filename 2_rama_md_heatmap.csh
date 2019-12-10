@@ -36,6 +36,7 @@ if ($#argv != 10) then
   echo '      [ fasta_file (one line of fasta seq) ]'
   echo '      [ Actual starting residue number ]'
   echo '      [ Output prefix ]'
+  echo '      [ Output image extension, (e.g. png,svg,eps,ps,pdf) ]'
   echo '      [ Template cpptraj input with "parm" and all "trajin" ]'
   echo '      [ Run cpptraj? : 0|1 ]'
   echo '      [ Generate figure with AA Dihedral density reference? : 0|1 ]'
@@ -53,6 +54,7 @@ set fastaStart = $argv[4]
 
 set out_pref   = $argv[5]	# Folder name, and file prefix
 set img_ext    = $argv[6] # Image format. png,svg,jpg,eps,ps,pdf
+
 set templ_traj = $argv[7]	# Template PTRAJ input file
 set run_traj   = $argv[8]	# run dihedral data generation
 set ref_rama   = $argv[9]	# use reference AA dihedral density map
