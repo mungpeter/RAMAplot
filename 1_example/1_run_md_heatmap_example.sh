@@ -3,6 +3,7 @@
   2 11 fgf21-wt-s2.fasta \
   200                    \
   fgf21-wt               \
+  png                    \
   templ_metrics.wt.traj  \
   1 1                    \
   ..                     \
