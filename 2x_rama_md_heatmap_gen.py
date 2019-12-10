@@ -251,10 +251,10 @@ def UserInput():
   p.add_argument('-png', dest='png_name', required=True,
                  help='Output PNG filename')
 
-  p.add_argument('-res', dest='residue', required=False,
-                 help='1-char AA code of residue (def: Pro, PreP, Gly, Gen)')
   p.add_argument('-int', dest='interval', required=False,
                  help='Ramachandran plot resolution (def: 2-degree)')
+  p.add_argument('-res', dest='residue', required=False,
+                 help='AA type for background dihedral density (def: Gen)')
   p.add_argument('-ref', dest='rama_ref', required=False,
                  help='Density data for reference Ramachandran distribution')
   p.add_argument('-smooth', dest='smoothen', required=False,
