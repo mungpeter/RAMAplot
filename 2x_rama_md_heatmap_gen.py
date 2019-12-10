@@ -157,7 +157,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
   if rama_ref is None:
     return None
 
-  rama_data = pd.read_csv(rama_ref, delimiter=' ', comment='#')
+  rama_data = pd.read_csv(rama_ref, delimiter='\s+', comment='#')
   rama_ref  = rama_data.pivot(index='phi',columns='psi',values='density')
 
   max_nm  = float(np.max(rama_data[['density']]))
