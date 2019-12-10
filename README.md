@@ -13,16 +13,16 @@ There are 2 parts to this particular Ramachandran (amino acid backbone dihedral 
 ```
 > 1_rama_single_structure.py
       -in  [ PDB file for Ramachandran density plot ]
-      -png [ Output PNG name ]
+      -img [ Output image name, extension as format (e.g. .png,svg,eps,ps,pdf) ]
 
      optional:
       -ref [ Directory to Density data for reference Ramachandran distribution ]
-      -dpi [ PNG figure DPI resolution (def: 300) ]
+      -dpi [ Figure DPI resolution (def: 300) ]
 
 
 e.g.> ./1_rama_single_structure_gen.py \
         -in 3anr.pdb.bz2               \
-        -png 3anr.rama_plot.png        \
+        -img 3anr.rama_plot.png        \
         -ref ../pyrama_data
 ```
 
@@ -52,6 +52,7 @@ e.g.> ./2_rama_md_heatmap.csh    \
           2 11 fgf21-wt-s2.fasta \
           200                    \
           fgf21-wt               \
+          png                    \
           templ_metrics.wt.traj  \
           1 1                    \
           .                      \
@@ -62,7 +63,7 @@ This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distrib
 ```
 > 2x_rama_md_heatmap_gen.py
       -in  [ phi-psi file for Ramachandran density plot ]
-      -png [ output PNG name ]
+      -img [ output image name, extension as format (e.g. .png,svg,eps,ps,pdf) ]
       
     optional:
       -res [ 1-char AminoAcid code for reference selection (def: Pro, PreP, Gly, Gen) ]
@@ -72,7 +73,7 @@ This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distrib
       -smooth   [ Histogram data smoothening (def: 1.15) ]
       -t_step   [ Colorbar tick spacing per histogram digits unit (def: 4) ]
       -c_step   [ Histo Contour spacing per histogram digits unit (def: 4) ]
-      -dpi      [ PNG figure DPI resolution (def: 300) ]\n
+      -dpi      [ Figure DPI resolution (def: 300) ]\n
 ```
 This is the **actual** script that generates the heatmap figure, but it can only do **one** residue at a time so it should be coupled with the above _rama_md_heatmap.csh_ script to run through a list of residues.
 
