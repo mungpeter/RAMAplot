@@ -51,16 +51,16 @@ set endResid   = $argv[2]	# Ending residue for phi/psi in PTRAJ
 set fasta_file = $argv[3]
 set fastaStart = $argv[4]
 
-
 set out_pref   = $argv[5]	# Folder name, and file prefix
-set templ_traj = $argv[6]	# Template PTRAJ input file
-set run_traj   = $argv[7]	# run dihedral data generation
-set ref_rama   = $argv[8]	# use reference AA dihedral density map
+set img_ext    = $argv[6] # Image format. png,svg,jpg,eps,ps,pdf
+set templ_traj = $argv[7]	# Template PTRAJ input file
+set run_traj   = $argv[8]	# run dihedral data generation
+set ref_rama   = $argv[9]	# use reference AA dihedral density map
 
 #set scptdir = '/home/pmung/Dropbox/9_scripts/3_program/plotting/RAMAplot'
 #set ctraj   = '/home/software/ctraj/bin/cpptraj'
-set scptdir = $argv[9]
-set ctraj   = $argv[10]
+set scptdir = $argv[10]
+set ctraj   = $argv[11]
 
 ##########################################################################
 
@@ -149,9 +149,9 @@ while ($i <= $endResid)
   endif
 
   ## Generate dihedral density heatmap
-  $scptdir/2x_rama_md_heatmap_gen.py \
-    -in  $out_pref.${fasta[$i]}$a.rama.out.bz2 \
-    -png $out_pref.${fasta[$i]}$a.rama_histo.png \
+  $scptdir/2x_rama_md_heatmap_gen.py                  \
+    -in  $out_pref.${fasta[$i]}$a.rama.out.bz2        \
+    -img $out_pref.${fasta[$i]}$a.rama_histo.$img_ext \
     $ref $res $t_step $c_step
 
   @ i++
