@@ -53,7 +53,7 @@ def main():
 ######################
 
   # Parse input data then count Frequency of Occurrence in the bins
-  df = pd.read_csv(args.in_file, delimiter=' ').drop(columns=['#Frame'])
+  df = pd.read_csv(args.in_file, delimiter='\s+').drop(columns=['#Frame'])
   df.columns = ['phi','psi']
   Frequency = CollectPopulation(data=df)
 
