@@ -31,10 +31,10 @@ mpl.rc('font', **font)
 
 msg = '''  > {0}
       -in  [ PDB file for Ramachandran density plot ]
-      -png [ Output PNG name ]\n
+      -img [ Output image name, extension as format (e.g. .png,svg,eps,ps,pdf) ]\n
     optional:
       -ref [ Directory to Density data for reference Ramachandran distribution ]
-      -dpi [ PNG figure DPI resolution (def: 300) ]\n
+      -dpi [ Figure DPI resolution (def: 300) ]\n
 '''.format(sys.argv[0])
 #if len(sys.argv) < 3 or len(sys.argv) > 4: sys.exit(msg)
 
@@ -67,7 +67,7 @@ def main( ):
   res_dict = InputRamaData( args.in_file, args.interval )
 
   # generate figure
-  GeneratePNG( res_dict, ref_dict, args.png_name, args.dpi )
+  GenerateImage( res_dict, ref_dict, args.img_name, args.dpi )
 
 
 ############################################################################
@@ -135,7 +135,7 @@ def RefRamaData( ref_dir, ref_inf ):
   rama_ref  = rama_data.pivot(index='phi',columns='psi',values='density')
 
   # data is transpose to get correct orientation
-  ref_obj = PNGData( histo2d=rama_ref.transpose() )
+  ref_obj = ImageData( histo2d=rama_ref.transpose() )
 
   # extent is different from res_obj.extent
   # color is (white, light color, dark color) at specific contour level
@@ -148,7 +148,7 @@ def RefRamaData( ref_dir, ref_inf ):
 
 ############################################################################
 ## Generate Ramachandran heat map
-def GeneratePNG( res_dict, ref_dict, png_name, dpi ):
+def GenerateImage( res_dict, ref_dict, img_name, dpi ):
 
   for idx, (key, ref_obj) in enumerate(sorted(ref_dict.items(), key=lambda x:x[0].lower())):
     
@@ -178,12 +178,12 @@ def GeneratePNG( res_dict, ref_dict, png_name, dpi ):
     plt.ylabel(r'Psi $\psi$', fontsize=16)
 
   plt.tight_layout()
-  plt.savefig(png_name, bbox_inches=0, dpi=dpi)
+  plt.savefig(img_name, bbox_inches=0, dpi=dpi)
 
 
 ############################################################################
 
-class PNGData(object):
+class ImageData(object):
   def __init__( self, histo2d='', **kwargs):
     self.histo2d = histo2d
 
@@ -208,8 +208,8 @@ def UserInput():
 
   p.add_argument('-in', dest='in_file', required=True,
                  help='PDB structure (zipped okay)')
-  p.add_argument('-png', dest='png_name', required=True,
-                 help='Output PNG filename')
+  p.add_argument('-img', dest='img_name', required=True,
+                 help='Output image filename, extension as format (e.g. .png,svg,eps,ps,pdf)')
 
   p.add_argument('-ref', dest='ref_dir', required=False,
                  help='Directory of Density data for reference Ramachandran distribution')
