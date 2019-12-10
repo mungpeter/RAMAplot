@@ -32,7 +32,7 @@ mpl.rc('font', **font)
 
 msg = '''  > {0}
       -in  [ phi-psi file for Ramachandran density plot ]
-      -png [ output PNG name ]\n
+      -img [ output image name, extension as format (e.g. png,svg,eps,ps,pdf ]\n
     optional:
       -res [ 1-char AminoAcid code for reference selection (def: Pro, PreP, Gly, Gen) ]
       -int [ Resolution (def: 2-deg interval) ]
@@ -41,7 +41,7 @@ msg = '''  > {0}
       -smooth   [ Histogram data smoothening (def: 1.15) ]
       -t_step   [ Colorbar tick spacing per histogram digits unit (def: 4) ]
       -c_step   [ Histo Contour spacing per histogram digits unit (def: 4) ]
-      -dpi      [ PNG figure DPI resolution (def: 300) ]\n
+      -dpi      [ Figure DPI resolution (def: 300) ]\n
 '''.format(sys.argv[0])
 #if len(sys.argv) < 3 or len(sys.argv) > 4: sys.exit(msg)
 
@@ -94,7 +94,7 @@ def main( ):
                            args.smoothen, args.t_step,   args.c_step    )
 
   # generate figure
-  GeneratePNG( res_obj, ref_obj, args.png_name, args.dpi )
+  GenerateImage( res_obj, ref_obj, args.img_name, args.dpi )
 
 
 ############################################################################
@@ -139,7 +139,7 @@ def InputRamaData( in_file, interval, fraction, smoothen, t_step, c_step ):
 
   # data is transpose to get correct orientation
   # im_extent and im_colors are dummy value to generate holder blank plot
-  res_obj = PNGData( histo2d=histo2d.transpose() )
+  res_obj = ImageData( histo2d=histo2d.transpose() )
   res_obj.cbar_ticks = cbar_ticks
   res_obj.levels = levels
   res_obj.extent = extent
@@ -167,7 +167,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
   ref_levels = np.linspace( 0, ref_max, num=(digits)+1 )
 
   # data is transpose to get correct orientation
-  ref_obj = PNGData( histo2d=rama_ref.transpose() )
+  ref_obj = ImageData( histo2d=rama_ref.transpose() )
 
   # unique setting for density data to generate correct plot axis order
   # extent is different from res_obj.extent
@@ -182,7 +182,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
 
 ############################################################################
 ## Generate Ramachandran heat map
-def GeneratePNG( res_obj, ref_obj, png_name, dpi ):
+def GenerateImage( res_obj, ref_obj, img_name, dpi ):
 
   plt.figure(2, figsize=(7,5.5))
   colors = mpl.cm.jet
@@ -232,12 +232,12 @@ def GeneratePNG( res_obj, ref_obj, png_name, dpi ):
   plt.ylabel(r'Psi $\psi$', fontsize=14)
 #  plt.grid(linestyle='--')
 
-  plt.savefig(png_name, bbox_inches=0, dpi=dpi)
+  plt.savefig(img_name, bbox_inches=0, dpi=dpi)
 
 
 ############################################################################
 
-class PNGData(object):
+class ImageData(object):
   def __init__( self, histo2d='', **kwargs):
     self.histo2d = histo2d
 
@@ -248,8 +248,8 @@ def UserInput():
 
   p.add_argument('-in', dest='in_file', required=True,
                  help='Phi-Psi time-series file of one residue (accept zipped file)')
-  p.add_argument('-png', dest='png_name', required=True,
-                 help='Output PNG filename')
+  p.add_argument('-img', dest='img_name', required=True,
+                 help='Output Image filename, extension as format (e.g. .png,svg,eps,ps,pdf)')
 
   p.add_argument('-int', dest='interval', required=False,
                  help='Ramachandran plot resolution (def: 2-degree)')
