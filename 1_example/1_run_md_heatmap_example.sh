@@ -5,6 +5,6 @@
   fgf21-wt               \
   png                    \
   templ_metrics.wt.traj  \
-  1 1                    \
+  0 1                    \
   ..                     \
-  /home/software/cpptraj/bin/cpptraj
+  /home/software/ctraj/bin/cpptraj
