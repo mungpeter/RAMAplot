@@ -115,8 +115,10 @@ while ($i <= $endResid)
       > $out_pref.${fasta[$i]}$a.rama.out
     echo $out_pref.${fasta[$i]}$a.rama.out
 
-    if (-e $out_pref.${fasta[$i]}$a.rama.out) then
+    if (-s $out_pref.${fasta[$i]}$a.rama.out) then
       bzip2 $out_pref.${fasta[$i]}$a.rama.out
+    else
+      rm $out_pref.${fasta[$i]}$a.rama.out
     endif
     rm $out_pref.${fasta[$i]}$a.phi.out $out_pref.${fasta[$i]}$a.psi.out
   endif
