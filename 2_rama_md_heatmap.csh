@@ -28,7 +28,7 @@
 ##
 ##########################################################################
 
-if ($#argv != 10) then
+if ($#argv != 11) then
   echo ''
   echo '  > x.csh '
   echo '      [ Starting residue for phi/psi in PTRAJ (prmtop) ]'
@@ -115,7 +115,9 @@ while ($i <= $endResid)
       > $out_pref.${fasta[$i]}$a.rama.out
     echo $out_pref.${fasta[$i]}$a.rama.out
 
-    bzip2 -f $out_pref.${fasta[$i]}$a.rama.out
+    if (-e $out_pref.${fasta[$i]}$a.rama.out) then
+      bzip2 $out_pref.${fasta[$i]}$a.rama.out
+    endif
     rm $out_pref.${fasta[$i]}$a.phi.out $out_pref.${fasta[$i]}$a.psi.out
   endif
 
