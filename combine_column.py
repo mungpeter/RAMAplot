@@ -3,9 +3,6 @@
 import sys,os,re
 import pandas as pd
 
-if int(pd.__version__.split('.')[1]) < 24:
-  sys.exit('\n  ERROR: Require Pandas 0.24+ \n')
-
 from argparse import ArgumentParser
 
 ##################################################################
