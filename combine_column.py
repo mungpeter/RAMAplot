@@ -44,7 +44,7 @@ def UserInput():
   p.add_argument('-cols', dest='cols', required=True, nargs='+',
                  help='Column(s) from file_2 to graft onto file_1 (multiple ok)')
   p.add_argument('-delim', dest='delim', required=False,
-                 help='Any Delimiter (def: "\s+"')
+                 help='Delimiter for input file (def: "\s+")')
   p.add_argument('-sep', dest='sep', required=False,
                  help='Delimiter for output file (def: "\t")')
   return p.parse_args()
@@ -53,3 +53,12 @@ def UserInput():
 if __name__ == '__main__':
   main( )
 
+##################################################################
+#
+#  Peter MU Ung @ MSSM/Yale
+#
+#  v1   19.12.09
+#
+#  rewrite of combine_column.pl in python format to fix some Perl issue.
+#  Using Pandas to streamline the organization and write out functions.
+#
