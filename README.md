@@ -29,7 +29,7 @@ e.g.> ./1_rama_single_structure_gen.py \
 This script manages the generation of Ramachandran plots for one input PDB structure, where residues are groups into **"Proline"**, **"Pre-Proline"** (1 residue before Proline), **"Glycine"**, and all other **"General"** amino acids. Each plot has a typical distribution of amino acid dihedral angle distribution in the background as a reference.
 
 - Ramachandran plot of a PDB structure
-![Ramachandran plot of a PDB structure](https://github.com/mungpeter/RAMAplot/blob/master/1_example/3anr.rama_plot.png)
+![Ramachandran plot of a PDB structure](https://github.com/mungpeter/RAMAplot/blob/master/Examples/1_single_struct/3anr.rama_plot.png)
 
 #######################################################################################
 
@@ -80,7 +80,7 @@ This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distrib
 This is the **actual** script that generates the heatmap figure, but it can only do **one** residue at a time so it should be coupled with the above _rama_md_heatmap.csh_ script to run through a list of residues.
 
 - Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap
-![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.png)
+![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/Examples/2_md_heatmap/fgf21-wt.P205.rama_histo.png)
 
 #######################################################################################
 ```
@@ -123,7 +123,7 @@ e.g.> ./3_rama_extract_popul.py                  \
 This script calculate the population of dihedral angles that fall within the defined ranges. 
 
 - Population of different clusters of dihedral angles in MD trajectory
-![Population of different clusters of dihedral angles in MD trajectory](https://github.com/mungpeter/RAMAplot/blob/master/1_example/fgf21-wt.A208.rama_histo.popul.png)
+![Population of different clusters of dihedral angles in MD trajectory](https://github.com/mungpeter/RAMAplot/blob/master/Example/3_extract_popul/fgf21-wt.A208.rama_histo.popul.png)
 
 #######################################################################################
 Stable packages:
