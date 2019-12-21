@@ -123,7 +123,8 @@ e.g.> ./3_rama_extract_popul.py                  \
 This script calculate the population of dihedral angles that fall within the defined ranges. 
 
 - Population of different clusters of dihedral angles in MD trajectory
-![Population of different clusters of dihedral angles in MD trajectory](https://github.com/mungpeter/RAMAplot/blob/master/Example/3_extract_popul/fgf21-wt.A208.rama_histo.popul.png)
+![Population of different clusters of dihedral angles in MD trajectory](https://github.com/mungpeter/RAMAplot/blob/master/Examples/3_extract_popul/fgf21-wt.A208.rama_histo.popul.png)
+
 
 #######################################################################################
 Stable packages:
