@@ -64,7 +64,7 @@ def main( ):
     ref_dict[key] = RefRamaData( args.ref_dir, ref_df[key] )
 
   # extract input residue dihedral angles and generate figure settings
-  res_dict = InputRamaData( args.in_file, args.interval )
+  res_dict = InputRamaData( args.in_file )
 
   # generate figure
   GenerateImage( res_dict, ref_dict, args.img_name, args.dpi )
@@ -73,7 +73,7 @@ def main( ):
 ############################################################################
 ############################################################################
 ## extract input residue dihedral angles
-def InputRamaData( pdb_file, interval ):
+def InputRamaData( pdb_file ):
 
   Res_Dih = []
   ## extract sequence and dihedral angle data from PDB structure
@@ -108,7 +108,7 @@ def InputRamaData( pdb_file, interval ):
 
   # build dataframe of dihedral angle data, drop those without phi/psi
   pdb_df = pd.DataFrame(Res_Dih, 
-             columns=['resname','resid','chain','PHI','PSI']).dropna()
+            columns=['resname','resid','chain','PHI','PSI']).dropna()
 
   # convert angle from radian to degree
   pdb_df['phi'] = radian2deg(pdb_df.PHI.to_numpy())

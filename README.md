@@ -40,6 +40,7 @@ This script manages the generation of Ramachandran plots for one input PDB struc
       [ fasta_file (one line of fasta seq) ]
       [ Actual starting residue number in protein ]
       [ Output prefix ]
+      [ Output image extension, (e.g. png,svg,eps,ps,pdf) ]
       [ Template cpptraj input with "parm" and all "trajin" ]
       [ Run cpptraj? : 0|1 ]
       [ Generate figure with AA Dihedral density reference? : 0|1 ]
@@ -49,7 +50,8 @@ This script manages the generation of Ramachandran plots for one input PDB struc
 *** Require the main processing script: rama_md_heatmap_gen.py ***
 
 e.g.> ./2_rama_md_heatmap.csh    \
-          2 11 fgf21-wt-s2.fasta \
+          2 11                   \
+          fgf21-wt-s2.fasta      \
           200                    \
           fgf21-wt               \
           png                    \
@@ -126,15 +128,17 @@ This script calculate the population of dihedral angles that fall within the def
 #######################################################################################
 Stable packages:
 ```
-python      # 3.6.9+
-numpy       # 1.17.4
-pandas      # 0.24.1+
-matplotlib  # 3.0.2+
-scipy       # 1.3.2
-biopython   # 1.72+
-gzip        #
-bzip2       #
-argparse    # 1.1
+csh/tcsh      # shell
+
+python        # 3.6.9+
+  numpy       # 1.17.4
+  pandas      # 0.24.1+
+  matplotlib  # 3.0.2+
+  scipy       # 1.3.2
+  biopython   # 1.72+
+  gzip        #
+  bzip2       #
+  argparse    # 1.1
 ```
 
 **Disclaimer:** These scripts are inspired by the PyRAMA repository by @gerdos so you will see resemblance of the figures. Redid it most to add a slightly difference artistic touch of my own, and to enable the heatmap generation for MD trajectory.

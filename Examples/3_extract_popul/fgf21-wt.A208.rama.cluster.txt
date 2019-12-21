@@ -1,0 +1,20 @@
+[34m## Working Directory ##[0m
+/home/pmung/Dropbox (Schlessinger lab)/9_scripts/3_program/plotting/RAMAplot_git/Examples/3_extract_popul
+
+[34m## List of data selection ##[0m
+/home/pmung/Dropbox (Schlessinger lab)/9_scripts/3_program/plotting/RAMAplot_git/Examples/3_extract_popul/fgf21-wt.A208.rama.cluster.list
+
+#[34m X-range[0m [ -180.0 , -120.0 ] | [34mY-range[0m [ 120.0 , 180.0 ]
+ [4m% Population:[0m 11.62
+
+#[34m X-range[0m [ -120.0 , -30.0 ] | [34mY-range[0m [ 120.0 , 180.0 ]
+ [4m% Population:[0m 31.39
+
+#[34m X-range[0m [ -120.0 , -30.0 ] | [34mY-range[0m [ -60.0 , 30.0 ]
+ [4m% Population:[0m 21.10
+
+#[34m X-range[0m [ 30.0 , 90.0 ] | [34mY-range[0m [ -30.0 , 60.0 ]
+ [4m% Population:[0m 4.36
+
+# [4m% Total Population:[0m 68.48
+

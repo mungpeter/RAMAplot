@@ -1,0 +1,24 @@
+parm   ./fgf21-wt-s2.prot.prmtop
+
+trajin ./fgf21-wt-s2.prod_gamd.nc 1 500 1
+
+dihedral 2_phi :1@C :2@N :2@CA :2@C out fgf21-wt.S200.phi.out
+dihedral 2_psi :2@N :2@CA :2@C :3@N out fgf21-wt.S200.psi.out
+dihedral 3_phi :2@C :3@N :3@CA :3@C out fgf21-wt.Q201.phi.out
+dihedral 3_psi :3@N :3@CA :3@C :4@N out fgf21-wt.Q201.psi.out
+dihedral 4_phi :3@C :4@N :4@CA :4@C out fgf21-wt.G202.phi.out
+dihedral 4_psi :4@N :4@CA :4@C :5@N out fgf21-wt.G202.psi.out
+dihedral 5_phi :4@C :5@N :5@CA :5@C out fgf21-wt.R203.phi.out
+dihedral 5_psi :5@N :5@CA :5@C :6@N out fgf21-wt.R203.psi.out
+dihedral 6_phi :5@C :6@N :6@CA :6@C out fgf21-wt.S204.phi.out
+dihedral 6_psi :6@N :6@CA :6@C :7@N out fgf21-wt.S204.psi.out
+dihedral 7_phi :6@C :7@N :7@CA :7@C out fgf21-wt.P205.phi.out
+dihedral 7_psi :7@N :7@CA :7@C :8@N out fgf21-wt.P205.psi.out
+dihedral 8_phi :7@C :8@N :8@CA :8@C out fgf21-wt.S206.phi.out
+dihedral 8_psi :8@N :8@CA :8@C :9@N out fgf21-wt.S206.psi.out
+dihedral 9_phi :8@C :9@N :9@CA :9@C out fgf21-wt.Y207.phi.out
+dihedral 9_psi :9@N :9@CA :9@C :10@N out fgf21-wt.Y207.psi.out
+dihedral 10_phi :9@C :10@N :10@CA :10@C out fgf21-wt.A208.phi.out
+dihedral 10_psi :10@N :10@CA :10@C :11@N out fgf21-wt.A208.psi.out
+dihedral 11_phi :10@C :11@N :11@CA :11@C out fgf21-wt.S209.phi.out
+dihedral 11_psi :11@N :11@CA :11@C :12@N out fgf21-wt.S209.psi.out

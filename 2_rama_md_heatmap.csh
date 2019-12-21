@@ -82,10 +82,12 @@ while ($i <= $endResid)	# Generate tmp input for Dihedral angle calc.
   ## Phi = C1-N2-CA2-C2
   echo dihedral $i\_phi :$j@C :$i@N :$i@CA :$i@C \
     out $out_pref.${fasta[$i]}$a.phi.out >> tmp.$out_pref.traj
+  wait
 
   ## Psi = N2-CA2-C2-N3
   echo dihedral $i\_psi :$i@N :$i@CA :$i@C :$k@N \
     out $out_pref.${fasta[$i]}$a.psi.out >> tmp.$out_pref.traj
+  wait
 
   @ i++
   @ a++
@@ -94,6 +96,7 @@ end
 ## generate phi-psi data 
 if ($run_traj == 1) then
   $ctraj tmp.$out_pref.traj
+  wait
 endif
 
 
@@ -112,14 +115,17 @@ while ($i <= $endResid)
       -in1 $out_pref.${fasta[$i]}$a.phi.out \
       -in2 $out_pref.${fasta[$i]}$a.psi.out \
       -cols 2                               \
-      > $out_pref.${fasta[$i]}$a.rama.out
+      > $out_pref.${fasta[$i]}$a.rama.out 
+    wait
     echo $out_pref.${fasta[$i]}$a.rama.out
 
-    if (-s $out_pref.${fasta[$i]}$a.rama.out) then
-      bzip2 $out_pref.${fasta[$i]}$a.rama.out
+    if ( ! -s $out_pref.${fasta[$i]}$a.rama.out ) then
+      bzip2 -f $out_pref.${fasta[$i]}$a.rama.out
+      wait
     else
-      rm $out_pref.${fasta[$i]}$a.rama.out
+#      rm $out_pref.${fasta[$i]}$a.rama.out
     endif
+
     rm $out_pref.${fasta[$i]}$a.phi.out $out_pref.${fasta[$i]}$a.psi.out
   endif
 
@@ -158,7 +164,7 @@ while ($i <= $endResid)
   $scptdir/2x_rama_md_heatmap_gen.py                  \
     -in  $out_pref.${fasta[$i]}$a.rama.out.bz2        \
     -img $out_pref.${fasta[$i]}$a.rama_histo.$img_ext \
-    $ref $res $t_step $c_step
+    $ref $res $t_step $c_step &
 
   @ i++
   @ a++
