@@ -33,7 +33,7 @@ if ($#argv != 11) then
   echo '  > x.csh '
   echo '      [ Starting residue for phi/psi in PTRAJ (prmtop) ]'
   echo '      [ Ending residue for phi/psi in PTRAJ (prmtop)   ]'
-  echo '      [ fasta_file (one line of fasta seq) ]'
+  echo '      [ fasta_file (one line of fasta seq only) ] HIE/HID/HIP need to be in HIS'
   echo '      [ Actual starting residue number ]'
   echo '      [ Output prefix ]'
   echo '      [ Output image extension, (e.g. png,svg,eps,ps,pdf) ]'
@@ -42,7 +42,7 @@ if ($#argv != 11) then
   echo '      [ Generate figure with AA Dihedral density reference? : 0|1 ]'
   echo ''
   echo '      [ Path to this script directory ]'
-  echo '      [ Path to GitHub cpptraj ]'
+  echo '      [ Path to Cpptraj ]'
   echo ''
   exit
 endif
@@ -67,8 +67,8 @@ set ctraj   = $argv[11]
 ##########################################################################
 
 
-## split fasta into array of characters
-set fasta = (`cat ./$fasta_file | grep -o .`)
+## split fasta into array of characters, ignore header of fasta
+set fasta = (`cat ./$fasta_file | grep -v '>' | tr -d '\n' | grep -o .`)
 
 cp ./$templ_traj tmp.$out_pref.traj
 
@@ -95,7 +95,7 @@ end
 
 ## generate phi-psi data 
 if ($run_traj == 1) then
-  $ctraj tmp.$out_pref.traj
+  $ctraj -i tmp.$out_pref.traj
   wait
 endif
 

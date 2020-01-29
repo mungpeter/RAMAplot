@@ -11,6 +11,24 @@ There are 2 parts to this particular Ramachandran (amino acid backbone dihedral 
 
 #######################################################################################
 ```
+> 0_pdb2fasta.py
+      [PDB filename: .pdb]
+      [Name of PDB]
+      [FASTA Output Name]
+
+  Note: Capping Groups (ACE/NME) and nonstandard amino acids are not recognized
+        HIE/HID/HIP are not recognized, convert to HIS first
+
+e.g.> ./0_pdb2fasta.py \
+        test.pdb       \
+        test           \
+        test.fasta
+```
+
+This script convert PDB file into FASTA sequence. However, nonstandard amino acids such as capping groups (ACE/NME) and modified residues (PTO/MSE) and alternative names (HIE/HIP/HID for HIS) are not read in properly by BioPython. User need to add ACE/NME (as 'X') to the result fasta file; alternative residue name _(sed 's/HIE|/HIP|/HID/HIS/g')_ and non-standard AA fixings have to be done before hand.
+
+#######################################################################################
+```
 > 1_rama_single_structure.py
       -in  [ PDB file for Ramachandran density plot ]
       -img [ Output image name, extension as format (e.g. .png,svg,eps,ps,pdf) ]
