@@ -17,7 +17,7 @@ There are 2 parts to this particular Ramachandran (amino acid backbone dihedral 
       [FASTA Output Name]
 
   Note: Capping Groups (ACE/NME) and nonstandard amino acids are not recognized
-        HIE/HID/HIP are not recognized, convert to HIS first
+        Need to add 'X' to the result FASTA manually
 
 e.g.> ./0_pdb2fasta.py \
         test.pdb       \

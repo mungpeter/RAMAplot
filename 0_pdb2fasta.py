@@ -19,7 +19,7 @@ msg = """
     > {0}\n      [PDB filename: .pdb] [Name of PDB] [FASTA Output Name]
 
   Note: Capping Groups (ACE/NME) and nonstandard amino acids are not recognized
-        HIE/HID/HIP are not recognized, convert to HIS first
+        need to add 'X' to result FASTA manually
         """.format(sys.argv[0])
 if len(sys.argv) != 4: sys.exit(msg)
 
@@ -31,15 +31,17 @@ def FASTA_Gen(pdb_file, pdb_id, output_file):
   for chain in m.get_chains():
     residues = list(chain.get_residues())
     chain_id = chain.get_id()
-      
-    peptide = PPBuilder().build_peptides(chain)
-    s = '' + peptide[0].get_sequence() + '\n\n'
+
+    s = ''
+    peptides = PPBuilder().build_peptides(chain, aa_only=False)
+    for peptide in peptides:
+      s = s + peptide.get_sequence() + '\n\n'
 
     w.write('>{0}_{1}|{2}-{3}\n'.format(
                   pdb_id, chain_id, 
                   residues[0].get_id()[1], residues[-1].get_id()[1] ) )
     w.write(str(s))
-  
+
   w.close()
 
 ##############################################
