@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+## 20.02.26 - duplicate those that have 1- or 2-letter PDB_ID code
+
 ##########################################################################
 # Natural amino acid 3-letter <-> 1-letter conversion
 aa_dict = {
@@ -245,6 +247,15 @@ sh_dict = {
 ' CA':'',   # calcium ion
 ' SR':'',   # strontium ion
 ' BA':'',   # barium ion
+'LI':'',   # lithium ion
+'NA':'',   # sodium ion
+'K':'',   # potassium ion
+'RB':'',   # rubidium ion
+'CS':'',   # cesium ion
+'MG':'',   # magnesium ion
+'CA':'',   # calcium ion
+'SR':'',   # strontium ion
+'BA':'',   # barium ion
 
 ' MN':'',   # managese ion
 ' ZN':'',   # zinc ion
@@ -262,11 +273,28 @@ sh_dict = {
 '  W':'',   # tungstein ion
 ' TL':'',   # thallium ion
 'YT3':'',   # yttrium(+3) cation
+'MN':'',   # managese ion
+'ZN':'',   # zinc ion
+'CO':'',   # cobalt2 ion
+'MO':'',   # molybdenum 
+'CD':'',   # cadium ion
+'NI':'',   # nickel ion
+'PB':'',   # lead2 ion
+'HG':'',   # mercery ion
+'AU':'',   # gold ion
+'FE':'',   # iron3 ion
+'CU':'',   # copper2 ion
+'W':'',   # tungstein ion
+'TL':'',   # thallium ion
+
 
 ' CL':'',
+'CL':'',
 ' BR':'',
+'BR':'',
 'IOD':'',   # iodide ion
 ' OH':'',   # hydroxide ion
+'OH':'',   # hydroxide ion
 'SCN':'',   # thiocyanate ion
 'CYN':'',   # cyanide ion
 'AZI':'',   # azide ion
@@ -291,6 +319,7 @@ sh_dict = {
 'UNK':'',   # unknown
 'UNX':'',   # unknown
 ' UN':'',
+'UN':'',
 }
 
 # Check if residue is salt or un-natural amino acid
@@ -302,3 +331,70 @@ def SaltAdditive(name):
   else:
     return False
 
+##########################################################################
+# Nucleotides
+
+nc_dict = {
+  'ATP':'', # ADENOSINE-5'-TRIPHOSPHATE	
+  'ADP':'', 
+  'AMP':'',
+  '01G':'', #
+  '08T':'', #
+  '0DC':'', #
+  '0DG':'', #
+  '0G4':'', #
+  '0G8':'', #
+  '0KX':'', # 2'-deoxy-5'-O-[(R)-hydroxy{[(R)-hydroxy(phosphonooxy)phosphoryl]amino}phosphoryl]cytidine	
+  '0O2':'', # guanosine 5'-(tetrahydrogen triphosphate) 3'-(trihydrogen diphosphate)
+  'ANP':'', # PHOSPHOAMINOPHOSPHONIC ACID-ADENYLATE ESTER	
+  '  A':'', # ADENOSINE-5'-MONOPHOSPHATE	
+  'A':'', # ADENOSINE-5'-MONOPHOSPHATE	
+  'A23':'', # ADENOSINE-5'-PHOSPHATE-2',3'-CYCLIC PHOSPHATE	
+  'A2M':'', # 2'-O-methyladenosine 5'-(dihydrogen phosphate)	
+  'A2P':'', # ADENOSINE-2'-5'-DIPHOSPHATE	
+  'A3A':'', # 2'DEOXY-ALPHA-ANOMERIC-ADENOSINE-5'-PHOSPHATE	
+  'A3P':'', # ADENOSINE-3'-5'-DIPHOSPHATE	
+  'AAM':'', # ALPHA-ADENOSINE MONOPHOSPHATE	
+  'AD3':'', # 3-DEAZA-ADENOSINE	
+  'ADN':'', # ADENOSINE
+  'ADS':'', # ADENOSINE-5'-(DITHIO)PHOSPHATE	
+  'ADW':'', # ADENOSINE-5'-DITUNGSTATE	
+  'AP2':'', # PHOSPHOMETHYLPHOSPHONIC ACID ADENOSYL ESTER	
+  'APC':'', # DIPHOSPHOMETHYLPHOSPHONIC ACID ADENOSYL ESTER	
+  ' AS':'', # 2-DEOXY-ADENOSINE -5'-THIO-MONOPHOSPHATE	
+  'AS':'', # 2-DEOXY-ADENOSINE -5'-THIO-MONOPHOSPHATE	
+  'ABP':'', # 8-BROMOADENOSINE-5'-DIPHOSPHATE	
+  'ACP':'', # PHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	
+  'ACQ':'', # DIPHOSPHOMETHYLPHOSPHONIC ACID ADENYLATE ESTER	
+  'AD9':'', # ADP METAVANADATE	
+  'ADX':'', # ADENOSINE-5'-DIPHOSPHATE-GLUCOSE	
+  'AGS':'', # PHOSPHOTHIOPHOSPHORIC ACID-ADENYLATE ESTER	
+  'AN2':'', # AMP PHOSPHORAMIDATE	
+  'AOV':'', # ADP ORTHOVANADATE	
+  'AP7':'', # N1-PROTONATED ADENOSINE-5'-MONOPHOSPHATE	
+  'APR':'', # ADENOSINE-5-DIPHOSPHORIBOSE	
+  'APW':'', # {5'-O-[(R)-{[(S)-AMINO(HYDROXY-KAPPAO)PHOSPHORYL]OXY}(HYDROXY-KAPPAO)PHOSPHORYL]ADENOSINATO(2-)}MAGNESIUM	
+  'AQH':'', # [(2R,3S,4R,5R)-5-(6-amino-9H-purin-9-yl)-3,4-dihydroxytetrahydrofuran-2-yl]methyl (2R,3R,4R,5R,6S)-6-[(1R)-1,2-dihydroxyethyl]-3,4,5-trihydroxytetrahydro-2H-pyran-2-yl dihydrogen diphosphate	
+  'AQP':'', # ADENOSINE-5'-TETRAPHOSPHATE	
+  'AT4':'', # 5'-O-[(R)-HYDROXY(THIOPHOSPHONOOXY)PHOSPHORYL]ADENOSINE	
+  'ATF':'', # PHOSPHODIFLUOROMETHYLPHOSPHONIC ACID-ADENYLATE ESTER	
+  'ATR':'', # 2'-MONOPHOSPHOADENOSINE-5'-DIPHOSPHATE	
+  'ATS':'', # GAMMA-ARSONO-BETA, GAMMA-METHYLENEADENOSINE-5'-DIPHOSPHATE	
+  'AV2':'', # ADENOSINE-5'-DIPHOSPHATE-2',3'-VANADATE	
+  'AVC':'', # ADENOSINE-5'-MONOPHOSPHATE-2',3'-VANADATE	
+  'A12':'', # PHOSPHOMETHYLPHOSPHONIC ACID ADENOSYL ESTER	
+  'AU1':'', # 5'-O-[(R)-hydroxy(phosphonoamino)phosphoryl]adenosine	
+  'DAT':'', # 2'-DEOXYADENOSINE-5'-DIPHOSPHATE	
+  ' DA':'', # 2'-DEOXYADENOSINE-5'-MONOPHOSPHATE	
+  'DA':'', # 2'-DEOXYADENOSINE-5'-MONOPHOSPHATE	
+  'CTP':'', # CYTIDINE-5'-TRIPHOSPHATE	
+  'JZU':'', # 5'-deoxy-5'-(sulfamoylamino)adenosine	
+  'LA8':'', # L-ADENOSINE-5'-DIPHOSPHATE	
+  'M33':'', # 5'-O-[(S)-hydroxy{[(S)-hydroxy(methyl)phosphoryl]oxy}phosphoryl]adenosine	
+}
+
+def Nucleotides(name):
+  if name in nc_dict:
+    return True
+  else:
+    return False

@@ -10,6 +10,7 @@ There are 2 parts to this particular Ramachandran (amino acid backbone dihedral 
 *_Reference 2_: [Lovell et al. Structure validation by Calpha geometry: phi, psi and Cbeta deviation. Proteins, (2003) 50(3): 437-450](https://doi.org/10.1002/prot.10286)
 
 #######################################################################################
+- **Convert PDB into its corresponding FASTA sequence**
 ```
 > 0_pdb2fasta.py
       [PDB filename: .pdb]
@@ -28,6 +29,7 @@ e.g.> ./0_pdb2fasta.py \
 This script convert PDB file into FASTA sequence. However, nonstandard amino acids such as capping groups (ACE/NME) and modified residues (PTO/MSE) and alternative names (HIE/HIP/HID for HIS) are not read in properly by BioPython. User need to add ACE/NME (as 'X') to the result fasta file; alternative residue name _(sed 's/HIE|/HIP|/HID/HIS/g')_ and non-standard AA fixings have to be done before hand.
 
 #######################################################################################
+- **Generate Ramachandran Plot for _all_ residues in _ONE_ PDB structure **
 ```
 > 1_rama_single_structure.py
       -in  [ PDB file for Ramachandran density plot ]
@@ -50,7 +52,7 @@ This script manages the generation of Ramachandran plots for one input PDB struc
 ![Ramachandran plot of a PDB structure](https://github.com/mungpeter/RAMAplot/blob/master/Examples/1_single_struct/3anr.rama_plot.png)
 
 #######################################################################################
-
+- **Generate Ramachandran Plot for _ONE_ residues in a MD trajectory **
 ```
 > 2_rama_md_heatmap.csh
       [ Starting residue for phi/psi in PTRAJ (prmtop) ]
@@ -101,6 +103,7 @@ This is the **actual** script that generates the heatmap figure, but it can only
 ![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/Examples/2_md_heatmap/fgf21-wt.P205.rama_histo.png)
 
 #######################################################################################
+- **Extract percentage of population within a range of x- and y-axes**
 ```
 > 3_rama_extract_popul.py
       -in      [ phi-psi file for Ramachandran density plot ]
@@ -160,4 +163,4 @@ python        # 3.6.9+
   argparse    # 1.1
 ```
 
-**Disclaimer:** These scripts are inspired by the PyRAMA repository by @gerdos so you will see resemblance of the figures. Redid it most to add a slightly difference artistic touch of my own, and to enable the heatmap generation for MD trajectory.
+**Disclaimer:** These scripts are inspired by the PyRAMA repository by @gerdos so you will see resemblance of the figures. Redid it mostly to add a slightly different artistic touch of my own, and to enable the heatmap generation for MD trajectory.
