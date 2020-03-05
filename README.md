@@ -34,7 +34,7 @@ e.g.> ./0_pdb2fasta.py \
 This script convert PDB file into FASTA sequence. However, nonstandard amino acids such as capping groups (ACE/NME) and modified residues (PTO/MSE) and alternative names (HIE/HIP/HID for HIS) are not read in properly by BioPython. User need to add ACE/NME (as 'X') to the result fasta file; alternative residue name _(sed 's/HIE|/HIP|/HID/HIS/g')_ and non-standard AA fixings have to be done before hand.
 
 #######################################################################################
-- **Generate Ramachandran Plot for _all_ residues in _ONE_ PDB structure **
+- **Generate Ramachandran Plot for _all_ residues in _ONE_ PDB structure**
 ```
 > 1_rama_single_structure.py
       -in  [ PDB file for Ramachandran density plot ]
@@ -57,7 +57,7 @@ This script manages the generation of Ramachandran plots for one input PDB struc
 ![Ramachandran plot of a PDB structure](https://github.com/mungpeter/RAMAplot/blob/master/Examples/1_single_struct/3anr.rama_plot.png)
 
 #######################################################################################
-- **Generate Ramachandran Plot for _ONE_ residues in a MD trajectory **
+- **Generate Ramachandran Plot for _ONE_ residues in a MD trajectory**
 ```
 > 2_rama_md_heatmap.csh
       [ Starting residue for phi/psi in PTRAJ (prmtop) ]
@@ -153,7 +153,7 @@ This script calculate the population of dihedral angles that fall within the def
 
 
 #######################################################################################
-Stable packages:
+- **Stable packages:**
 ```
 csh/tcsh      # shell
 
