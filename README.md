@@ -102,7 +102,7 @@ This shell script calls up **2x_rama_md_heatmap_gen.py** to generate the distrib
       -c_step   [ Histo Contour spacing per histogram digits unit (def: 4) ]
       -dpi      [ Figure DPI resolution (def: 300) ]\n
 ```
-This is the **actual** script that generates the heatmap figure, but it can only do **one** residue at a time so it should be coupled with the above _rama_md_heatmap.csh_ script to run through a list of residues.
+This is the **actual** script that generates the heatmap figure, but it can only do **one** residue at a time so it should be coupled with the above **2_rama_md_heatmap.csh** script to run through a list of residues.
 
 - Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap
 ![Distribution of AA backbone dihedral angle of a residue throughout MD trajectories as heatmap](https://github.com/mungpeter/RAMAplot/blob/master/Examples/2_md_heatmap/fgf21-wt.P205.rama_histo.png)
