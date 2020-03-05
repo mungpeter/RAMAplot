@@ -1,6 +1,11 @@
 # RAMAplot
 _**Generate Ramachandran plots for single PDB structure and as heatmap for MD trajectory**_
 
+```
+  Author: Peter M.U. Ung @ MSSM / Yale
+
+  vers:   1.0
+```
 There are 2 parts to this particular Ramachandran (amino acid backbone dihedral angle) plot scripts:
 1) Generation of standarad Ramachandran plots for one input PDB structure.
 2) Generation amino acid backbone dihedral angle distribution/population (from MD simulations) as contoured heatmap.
