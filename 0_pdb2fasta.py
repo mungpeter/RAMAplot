@@ -18,8 +18,8 @@ from Bio.PDB.Polypeptide import PPBuilder
 msg = """
     > {0}\n      [PDB filename: .pdb] [Name of PDB] [FASTA Output Name]
 
-  Note: Capping Groups (ACE/NME) and nonstandard amino acids are not recognized
-        need to add 'X' to result FASTA manually
+  Note: \033[31mCapping Groups (ACE/NME)\033[0m and \033[31mNonstandard amino acids\033[0m are not recognized
+        need to \033[35mmanually add 'X'\033[0m to generated correctly spaced FASTA
         """.format(sys.argv[0])
 if len(sys.argv) != 4: sys.exit(msg)
 
