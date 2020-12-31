@@ -18,10 +18,8 @@ if int(pd.__version__.split('.')[1]) < 24:
 #
 #  v.1  19.04.03
 #  v.2  19.04.25  do multiple collections with list of X/Y ranges
-#  v.3  20.12.30  update readin column selection
 #
-#  Read in a file with X-/Y-axis data together, and
-#  calculate the % population in trajectory in the ranges defined by X-Y axis
+#  print out the % population in trajectory in the ranges defined by X-Y axis
 #
 ##  where the data is in 2D-matrix, and bin is defined by the upper end of
 ##  the range, i.e. range is [0,1,2,3] but data is binned in [0-1, 1-2, 2-3]
@@ -33,8 +31,8 @@ if int(pd.__version__.split('.')[1]) < 24:
   # 3.5 5.0 : 10 15     # population_2: x-range [3.5,5.0]; y-range [10, 15]
 #####  
 #
-#  e.g.> x.py -in     X-Y_file.txt    <- X-/Y-axis are together
-#             -col    1 2  -sep ','
+#  e.g.> x.py -in     rmsd_file.txt distance_file.txt
+#             -col    2
 #             -list   multi_ranges.list
 #               *or*
 #             -xrange 1.0 3.0
@@ -46,8 +44,6 @@ def main():
 
   args = cmdlineparse()     # command line input
 
-  args.cols = np.array(list(map(int, args.cols))) - 1
-
   if args.pwd is None:
     pwd = os.getcwd()
   else:
@@ -57,9 +53,8 @@ def main():
 ######################
 
   # Parse input data then count Frequency of Occurrence in the bins
-  raw = pd.read_csv(args.in_file, sep=args.sep, comment='#')
-  df  = raw[args.cols]
-  df.columns = ['x','y']
+  df = pd.read_csv(args.in_file, delimiter='\s+').drop(columns=['#Frame'])
+  df.columns = ['phi','psi']
   Frequency = CollectPopulation(data=df)
 
   ## Print out results
@@ -118,8 +113,8 @@ class CollectPopulation(object):
     ## then create a dataframe with all zeros as long as dataframe
     ## replace the zeros if corresponding position in (within) is True
     df = self.data
-    within = ((df.x.to_numpy() >= Xrange[0]) & (df.x.to_numpy() < Xrange[-1]) &
-              (df.y.to_numpy() >= Yrange[0]) & (df.y.to_numpy() < Yrange[-1]) )
+    within = ((df.phi.to_numpy() >= Xrange[0]) & (df.phi.to_numpy() < Xrange[-1]) &
+              (df.psi.to_numpy() >= Yrange[0]) & (df.psi.to_numpy() < Yrange[-1]) )
     occ_df = pd.DataFrame( {'0': [0]*len(df.index)} )
     occ_df[within == True] = 1
     count  = occ_df['0'].sum()
@@ -143,15 +138,11 @@ class CollectPopulation(object):
 def cmdlineparse():
   p = ArgumentParser(description="command line arguments")
   p.add_argument('-in', dest='in_file', required=True,
-                 help='X/Y-axis time-series file of one residue (gzip okay)')
+                 help='Phi-Psi time-series file of one residue (accept zipped file)')
 
   p.add_argument("-pwd", dest='pwd', required=False,
                  help="Path of working directory", metavar='<work directory>')
 
-  p.add_argument("-sep", dest='sep', required=False, default='\s+',
-                 help="Delimiter (def: ' ')", metavar='<sep>')
-  p.add_argument("-col", dest="cols", required=False, nargs='+', default=[1,2],
-                 help="Columns as X/Y-axis (def: 1 2)", metavar="<col_x col_y>")
   p.add_argument("-xrange", dest="x_range", required=False, nargs='+',
                  help="Range of X-dimension to collect", metavar="<xmin xmax>")
   p.add_argument("-yrange", dest="y_range", required=False, nargs='+',
