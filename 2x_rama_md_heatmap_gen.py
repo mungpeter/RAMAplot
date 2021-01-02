@@ -128,7 +128,7 @@ def InputRamaData( in_file, sep, cols, interval, fraction, smooth, t_step, c_ste
 
   # data is transpose to get correct orientation
   # im_extent and im_colors are dummy value to generate holder blank plot
-  res_obj = ImageData( histo2d=histo2d.transpose() )
+  res_obj = ImageData( histo2d=histo2d )
   res_obj.levels = levels
   res_obj.extent = extent
   res_obj.edges  = len(edges)
@@ -156,7 +156,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
   ref_levels = np.linspace( 0, ref_max, num=(digits)+1 )
 
   # data is transpose to get correct orientation
-  ref_obj = ImageData( histo2d=rama_ref.transpose() )
+  ref_obj = ImageData( histo2d=rama_ref )
 
   # unique setting for density data to generate correct plot axis order
   # extent is different from res_obj.extent
@@ -193,7 +193,7 @@ def GenerateImage( res_obj, ref_obj, img_name, dpi ):
       extent=res_obj.im_extent, cmap=res_obj.im_colors)
 
   ## overlay input AA histogram heat map on top of reference map, if exists
-  plt.contourf( res_obj.histo2d, 
+  plt.contourf( res_obj.histo2d.transpose(), 
                 origin='upper', extend=plot_extend, alpha=0.6,
                 extent=res_obj.extent, levels=res_obj.levels,
                 cmap=mpl.cm.get_cmap(colors, len(res_obj.levels)) )
@@ -205,7 +205,7 @@ def GenerateImage( res_obj, ref_obj, img_name, dpi ):
   cbar.ax.tick_params(labelsize=14)
 
   ## then overlay contour lines on top of heat map
-  plt.contour( res_obj.histo2d, 
+  plt.contour( res_obj.histo2d.transpose(), 
               extent=res_obj.extent, levels=res_obj.levels,
               origin='upper', colors='black', linewidths=0.67, alpha=0.4 )
 
