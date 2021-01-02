@@ -12,9 +12,9 @@
 ##  Required input file format (for each frame): <time> <phi> <psi>
 ##
 ##  Use with:
-##    -) combine_column.pl
-##    -) ecoDnaK.fasta
-##    1) rama_md_heatmap.csh
+##    -. combine_column.pl
+##    -. ecoDnaK.fasta
+##    1. rama_md_heatmap.csh
 ##
 ############################################################################
 
@@ -32,7 +32,7 @@ mpl.rc('font', **font)
 
 msg = '''  > {0}
       -in   < >    [ phi-psi file for Ramachandran density plot ]
-      -img  < >    [ output image name (format: png,svg,eps,ps,pdf ]\n
+      -img  < >    [ output image name (format: png,svg,eps,ps,pdf) ]\n
     optional:
       -sep  < >    [ Delimiter for input file columns (def: "\s+") ]
       -cols <+>    [ Column numbers in file for 2D plotting (def: 1 2) ]\n
