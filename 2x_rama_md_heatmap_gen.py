@@ -31,12 +31,14 @@ font = {'family': 'Arial'}
 mpl.rc('font', **font)
 
 msg = '''  > {0}
-      -in  < >     [ phi-psi file for Ramachandran density plot ]
-      -img < >     [ output image name (format: png,svg,eps,ps,pdf ]\n
+      -in   < >    [ phi-psi file for Ramachandran density plot ]
+      -img  < >    [ output image name (format: png,svg,eps,ps,pdf ]\n
     optional:
-      -res < >     [ 1-char AminoAcid code for ref. selection (def: Pro, PreP, Gly, Gen) ]
-      -int < >     [ Ramachandran plot resolution, in angular degree (def: 2l) ]
-      -ref < >     [ Density data for reference Ramachandran distribution ]
+      -sep  < >    [ Delimiter for input file columns (def: "\s+") ]
+      -cols <+>    [ Column numbers in file for 2D plotting (def: 1 2) ]\n
+      -res  < >    [ 1-char AminoAcid code for ref. selection (def: Pro, PreP, Gly, Gen) ]
+      -int  < >    [ Ramachandran plot resolution, in angular degree (def: 2l) ]
+      -ref  < >    [ Density data for reference Ramachandran distribution ]
       -fraction < >[ Cutoff fraction of the maximum Histogram value (def: 33) ]
       -smooth < >  [ Histogram data smoothening coefficient (def: 1.15) ]
       -t_step < >  [ Colorbar tick spacing per histogram digits unit (def: 4) ]
@@ -68,15 +70,16 @@ def main( ):
   smooth = float(args.smooth)
   t_step = float(args.t_step)
   c_step = float(args.c_step)
+  dpi    = int(args.dpi)
+  cols   = np.array(list(map(int, args.cols)))-1  ## data columns to extract
 
-  dpi = int(args.dpi)
 
   # if reference rama density is available, generate reference figure settings
   ref_obj = RefRamaData( args.rama_ref, ref_df, args.residue )
 
   # extract input residue dihedral angles and generate figure settings
-  res_obj = InputRamaData(args.in_file, interval, fraction,
-                          smooth, t_step, c_step    )
+  res_obj = InputRamaData(args.in_file, args.sep, cols, interval, fraction,
+                          smooth, t_step, c_step )
 
   # generate figure
   GenerateImage( res_obj, ref_obj, args.img_name, dpi )
@@ -85,9 +88,10 @@ def main( ):
 ############################################################################
 ############################################################################
 ## extract input residue dihedral angles and generate figure settings
-def InputRamaData( in_file, interval, fraction, smooth, t_step, c_step ):
+def InputRamaData( in_file, sep, cols, interval, fraction, smooth, t_step, c_step ):
 
-  rama_inp = pd.read_csv(in_file, delimiter='\s+').drop(columns=['#Frame'])
+  rama_df  = pd.read_csv(in_file, sep=sep)
+  rama_inp = rama_df[rama_df.columns[cols]]
 
   # Generate Ramachandran data in X-axis and Y-axis
   # Edges is array of [-180, 180] at a certain interval
@@ -103,7 +107,7 @@ def InputRamaData( in_file, interval, fraction, smooth, t_step, c_step ):
             (max(yedges)-min(yedges)) * smooth/len(yedges) ]
   smooth_hist = ndimage.filters.gaussian_filter(Histo, sigma=Sigma)
 
-  # get scientif notation, then set the cutoff to a fraction of maximum
+  # get scientific notation, then set the cutoff to a fraction of maximum
   max_nm = float(np.max(smooth_hist))
   powers = int('{:e}'.format(max_nm).split('e')[1])
   digits = np.ceil(float(('{:e}'.format(max_nm)).split('e')[0]))
@@ -125,12 +129,12 @@ def InputRamaData( in_file, interval, fraction, smooth, t_step, c_step ):
   # data is transpose to get correct orientation
   # im_extent and im_colors are dummy value to generate holder blank plot
   res_obj = ImageData( histo2d=histo2d.transpose() )
-  res_obj.cbar_ticks = cbar_ticks
   res_obj.levels = levels
   res_obj.extent = extent
   res_obj.edges  = len(edges)
   res_obj.im_extent = (-181,181,-181,181)
   res_obj.im_colors = mpl.colors.ListedColormap(['#FFFFFF'])
+  res_obj.cbar_ticks = cbar_ticks
 
   return res_obj
 
@@ -235,6 +239,11 @@ def UserInput():
                   help='Phi-Psi time-series file of one residue (accept zipped file)')
   p.add_argument('-img', dest='img_name', required=True,
                   help='Output Image filename, extension as format (e.g. .png,svg,eps,ps,pdf)')
+
+  p.add_argument('-sep', dest='sep', required=False, default='\s+',
+                  help='Delimiter for input file columns (def: "\s+")', metavar='<delimiter>')
+  p.add_argument('-cols', dest='cols', required=False, nargs='+', default=[1,2],
+                  help='Column numbers in file for 2D plotting (def: 1 2)', metavar='<X-col Y-col>')
 
   p.add_argument('-int', dest='interval', required=False, default=2,
                   help='Ramachandran plot resolution, in angular degree (def: 2)')
