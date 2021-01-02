@@ -199,10 +199,10 @@ def GenerateImage( res_obj, ref_obj, img_name, dpi ):
                 cmap=mpl.cm.get_cmap(colors, len(res_obj.levels)) )
 
   ## create colorbar instance on side based on last data input
-  cbar = plt.colorbar(ticks=res_obj.cbar_ticks, format=('%.1e'),
-                      extend=bar_extend, aspect=20 )
+  cbar = plt.colorbar(ticks=res_obj.cbar_ticks, format=('%.1e'), aspect=20 )
   bar_label = '% Population'
   cbar.ax.set_ylabel(bar_label, rotation=270, fontsize=18, labelpad=20)
+  cbar.ax.tick_params(labelsize=14)
 
   ## then overlay contour lines on top of heat map
   plt.contour( res_obj.histo2d, 
