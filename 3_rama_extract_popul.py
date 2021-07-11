@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 from pathos import multiprocessing
 from argparse import ArgumentParser
 
-if int(pd.__version__.split('.')[1]) < 24:
-  sys.exit('\n  ERROR: Require Pandas 0.24+ \n')
+#if int(pd.__version__.split('.')[1]) < 24:
+#  sys.exit('\n  ERROR: Require Pandas 0.24+ \n')
 
 ##########################################################################
 #

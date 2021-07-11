@@ -117,10 +117,10 @@ def InputRamaData( in_file, sep, cols, interval, fraction, smooth, t_step, c_ste
   histo2d = smooth_hist - h_max/fraction
 
   # side bar tick, maximum = histogram value
-  cbar_ticks = np.linspace( 0, h_max, num=(digits*t_step)+1 )
+  cbar_ticks = np.linspace( 0, h_max, num=int(digits*t_step)+1 )
 
   # Contour levels, set to be 'c_step' of the histo value, default is 4x
-  levels = np.linspace( 0, h_max, num=(digits*c_step)+1 )
+  levels = np.linspace( 0, h_max, num=int(digits*c_step)+1 )
 
   # X- and Y-axes min and max, will be stretch to be equal
   extent = [  xedges[0] -1, xedges[-1]+1,
@@ -153,7 +153,7 @@ def RefRamaData( rama_ref, ref_df, residue ):
   powers  = int('{:e}'.format(max_nm).split('e')[1])
   digits  = np.ceil(float(('{:e}'.format(max_nm)).split('e')[0]))
   ref_max = np.float('{0}e{1}'.format(digits, powers))
-  ref_levels = np.linspace( 0, ref_max, num=(digits)+1 )
+  ref_levels = np.linspace( 0, ref_max, num=int(digits)+1 )
 
   # data is transpose to get correct orientation
   ref_obj = ImageData( histo2d=rama_ref )
