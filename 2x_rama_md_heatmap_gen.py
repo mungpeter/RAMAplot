@@ -251,7 +251,7 @@ def UserInput():
                   help='AA type (Gen,Gly,Pro,PreP) for background dihedral density (def: Gen)')
   p.add_argument('-ref', dest='rama_ref', required=False,
                   help='Density data for reference Ramachandran distribution')
-  p.add_argument('-smooth', dest='smoothen', required=False, default=1.15,
+  p.add_argument('-smooth', dest='smooth', required=False, default=1.15,
                   help='Histogram data smoothening (def: 1.15)')
   p.add_argument('-fraction', dest='fraction', required=False, default=33,
                   help='Cutoff fraction of the maximum Histogram value (def: 33)')
